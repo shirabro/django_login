@@ -20,7 +20,7 @@ Connection closed by 127.0.0.1 port 2222"
 Run this inside docker: 
 rm -fr /var/run/nologin
 
-First few lines in Dockerfile explained:
+Lines 2-13 in Dockerfile explained:
 The current official Docker image for CentOS does contain systemd, but it is inactive by default.
 By removing these files, systemd is prevented from starting several services during container startup. This approach results in a bare-bones, yet functional systemd inside the container.
 Running a container from this image also requires a specific option to mount the cgroup volume:
