@@ -1,21 +1,24 @@
 Build and run docker Container:
 docker build . -t <image_name>
-docker run -d --privileged -p 2222:22 -p 8888:8080 -v /var/run/docker.sock:/var/run/docker.sock -e AUTH_MECHANISM=noAuth <user_name>
+docker run -d --privileged -p 2222:22 -p 8888:8080 -v /var/run/docker.sock:/var/run/docker.sock -e AUTH_MECHANISM=noAuth <image_name>
 
-in order to add more users run inside docker: 
+Enter docker and run web server:
 docker exec it <CONTAINER ID> bash
+python3 ./manage.py runserver 8080 
+curl http://127.0.0.1:8080/
+
+In order to add more users run inside docker: 
 adduser <username>
 passwd <username>
 
+To login to the os system:
 ssh <username>@localhost -p 2222
-
-RUN python3 ./manage.py runserver 8080 
-curl http://127.0.0.1:8080/
 
 in case you get this error when trying to login with user other than root: 
 "System is booting up. See pam_nologin(8) 
 Connection closed by 127.0.0.1 port 2222"
-Run this inside docker : rm -fr /var/run/nologin
+Run this inside docker: 
+rm -fr /var/run/nologin
 
 First few lines in Dockerfile explained:
 The current official Docker image for CentOS does contain systemd, but it is inactive by default.
