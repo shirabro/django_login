@@ -11,17 +11,15 @@ rm -f /lib/systemd/system/basic.target.wants/*;\
 rm -f /lib/systemd/system/anaconda.target.wants/*;
 VOLUME [ "/sys/fs/cgroup" ]
 CMD ["/usr/sbin/init"]
-RUN yum install -y  python3
-RUN yum install -y which python3-devel gcc-gfortran.x86_64 gcc-c++-4.8.3-9.el7.x86_64 g++
 
-RUN yum -y install python3-{pip,zmq} gcc-c++ freetype-devel
+RUN yum install -y python3 python3-devel gcc-gfortran.x86_64 gcc-c++-4.8.3-9.el7.x86_64 g++
 
-RUN yum install -y sudo wget telnet openssh-server vim git ncurses-term
-RUN yum update -y && yum -y install openssh openssh-server openssh-clients sudo initscripts
+RUN yum -y install python3-{pip,zmq} freetype-devel
+RUN yum -y install openssh openssh-server openssh-clients sudo initscripts
 
 RUN echo 'root:1234' | chpasswd
 RUN rm -fr /var/run/nologin
 
-WORKDIR /django_login
-COPY . /django_login/
+WORKDIR /user_login_tracking
+COPY . /user_login_tracking/
 RUN pip3 install -r requirements.txt
